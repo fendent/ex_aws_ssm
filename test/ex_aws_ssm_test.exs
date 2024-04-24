@@ -23,6 +23,36 @@ defmodule ExAws.SSMTest do
     :ok
   end
 
+  describe "create_activation" do
+    test "return ExAws.Operation" do
+      assert %ExAws.Operation.JSON{
+               stream_builder: nil,
+               http_method: :post,
+               parser: _,
+               path: "/",
+               data: %{
+                 "IamRole" => "ik-ecs-anywhere-development-role",
+                 "defaultInstanceName" => "ik-external-instance-development-test-1",
+                 "description" => "development - 'test-1'",
+                 "registrationLimit" => 1
+               },
+               params: %{},
+               headers: [
+                 {"x-amz-target", "AmazonSSM.CreateActivation"},
+                 {"content-type", "application/x-amz-json-1.1"}
+               ],
+               service: :ssm,
+               before_request: nil
+             } =
+               ExAws.SSM.create_activation(
+                 "ik-ecs-anywhere-development-role",
+                 default_instance_name: "ik-external-instance-development-test-1",
+                 description: "development - 'test-1'",
+                 registration_limit: 1
+               )
+    end
+  end
+
   describe "put_parameter" do
     test "return ExAws.Operation" do
       assert %ExAws.Operation.JSON{
