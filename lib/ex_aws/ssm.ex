@@ -1,10 +1,18 @@
 defmodule ExAws.SSM do
   @moduledoc """
   Documentation for ExAws.SSM.
-  
+
   AWS API version 2014-11-06.
   """
   import ExAws.SSM.Utils
+
+  @type create_activation_opt ::
+          {:default_instance_name, binary}
+          | {:description, binary}
+          | {:expiration_date, binary}
+          | {:registration_limit, pos_integer}
+          | {:registration_metadata, list(map)}
+          | {:tags, list(map)}
 
   @type decryption_opt :: {:with_decryption, boolean}
   @type pagination_opts ::
@@ -37,6 +45,22 @@ defmodule ExAws.SSM do
           {:name, binary}
           | pagination_opts
           | decryption_opt
+
+  @doc """
+  Generates an activation code and activation ID you can use to register your on-premises servers and virtual machines with Systems Manager.
+  """
+  @spec create_activation(iam_role :: binary) :: ExAws.Operation.JSON.t()
+  @spec create_activation(iam_role :: binary, opts :: [create_activation_opt]) ::
+          ExAws.Operation.JSON.t()
+  def create_activation(iam_role, opts \\ []) do
+    params =
+      %{
+        "IamRole" => iam_role
+      }
+      |> merge_opts(opts)
+
+    request(:create_activation, params)
+  end
 
   @doc """
   Get information about a parameter by using the parameter name.
