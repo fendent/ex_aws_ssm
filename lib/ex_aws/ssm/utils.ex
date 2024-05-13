@@ -33,7 +33,7 @@ defmodule ExAws.SSM.Utils do
     opts
     |> Enum.into(%{})
     |> camelize_keys()
-    |> Enum.reduce(%{}, &normalize_opts/2)
+    # |> Enum.reduce(%{}, &normalize_opts/2)
   end
 
   def to_lower_camel_case(string) do
