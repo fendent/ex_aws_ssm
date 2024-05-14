@@ -10,8 +10,9 @@ Documentation can be found at [https://hexdocs.pm/ex_aws_ssm](https://hexdocs.pm
 
 The following actions are currently supported.
 
-| action              |
+| action                 |
 | ---------------------- |
+| create_activation      |
 | delete_parameter       |
 | delete_parameters      |
 | get_parameter          |
